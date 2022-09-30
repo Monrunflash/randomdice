@@ -2,7 +2,7 @@ import datetime
 import matplotlib.pyplot as plt
 import random
 
-
+#initialize variables
 dice = [1,2,3,4,5,6]
 puntuation = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
 percentage = {1:[],2:[],3:[],4:[],5:[],6:[]}
@@ -15,6 +15,7 @@ zero_percent_throw = int()
 almost_zero_percent = False
 almost_zero_percent_throw = int()
 
+#this function throw the dice 6 times and later call the percentage calculator
 def throw_the_dices():
     global throw
     for i in range(0,6):
@@ -24,12 +25,14 @@ def throw_the_dices():
     throw_serie.append(throw)
     percetage_calc()
 
+#calculate every side of the dice and call another function
 def percetage_calc():
     for n in range(1,7):
         percentagee = puntuation.get(n)/(throw)*100
         percentage[n].append(percentagee)
     one_percent_diference()
 
+#this function calculates if the diferences between percentages reach the desired levels
 def one_percent_diference():
     global nineteen_perc_throw
     global nineteen_perc
@@ -55,6 +58,7 @@ def one_percent_diference():
         zero_percent_throw = throw
 
 
+#this charge all the data to load the graphic
 def draw_graphic():
     plt.xlabel('throw series')
     plt.ylabel('percentage')
@@ -73,6 +77,7 @@ def draw_graphic():
         plt.axvline(x = zero_percent_throw, linestyle='dashed', color="r", label = "diferences lest than 0.01%")
     plt.show()
 
+#calculate the time to complete the work
 def calculate_time():
     finish_time = datetime.datetime.now() - start_time
     print("Time to complete %s" % finish_time)
@@ -80,10 +85,15 @@ def calculate_time():
 i = 0
 start_time = datetime.datetime.now()
 
-while not zero_percent:
-    i += 1
-    print(i)
-    throw_the_dices()
+def main():
+    global i
+    while not zero_percent:
+        i += 1
+        print(i)
+        throw_the_dices()
 
-calculate_time()
-draw_graphic()
+    calculate_time()
+    draw_graphic()
+
+if __name__ == "__main__":
+    main()
